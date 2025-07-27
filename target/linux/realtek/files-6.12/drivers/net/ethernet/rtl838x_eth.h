@@ -48,9 +48,10 @@
 #define RTL930X_MAC_FORCE_MODE_CTRL		(0xCA1C)
 #define RTL931X_MAC_FORCE_MODE_CTRL		(0x0dcc)
 
-#define RTL83XX_DMA_IF_INTR_STS_NOTIFY_MASK	GENMASK(22, 20)
-#define RTL83XX_DMA_IF_INTR_STS_RX_DONE_MASK	GENMASK(15, 8)
-#define RTL83XX_DMA_IF_INTR_STS_RX_RUN_OUT_MASK	GENMASK(7, 0)
+#define RTL839X_DMA_IF_INTR_NOTIFY_MASK		GENMASK(22, 20)
+#define RTL83XX_DMA_IF_INTR_RX_DONE_MASK	GENMASK(15, 8)
+#define RTL83XX_DMA_IF_INTR_RX_RUN_OUT_MASK	GENMASK(7, 0)
+#define RTL83XX_DMA_IF_INTR_RX_MASK(ring)	(BIT(ring) | BIT(ring + 8))
 
 /* MAC address settings */
 #define RTL838X_MAC				(0xa9ec)
@@ -451,5 +452,8 @@ int phy_package_read_paged(struct phy_device *phydev, int page, u32 regnum);
 int phy_package_write_paged(struct phy_device *phydev, int page, u32 regnum, u16 val);
 int phy_port_read_paged(struct phy_device *phydev, int port, int page, u32 regnum);
 int phy_port_write_paged(struct phy_device *phydev, int port, int page, u32 regnum, u16 val);
+
+int rtmdio_838x_read_phy(u32 port, u32 page, u32 reg, u32 *val);
+int rtmdio_838x_write_phy(u32 port, u32 page, u32 reg, u32 val);
 
 #endif /* _RTL838X_ETH_H */
